@@ -1,0 +1,165 @@
+\ProvidesPackage{Arno}[2014/03/10 Custom Package by Arnaud Panaïotis]
+% DEFAULT LANGUAGE IS ENGLISH
+
+
+%Usepackage already prensents :
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[x11names]{xcolor}
+\RequirePackage{amsmath}
+\RequirePackage{graphicx}		% Allow \includegraphics
+\RequirePackage[space]{grffile} % Provide \includegraphics to include file containing spaces
+\RequirePackage{array}			% Allow Tabulars
+\RequirePackage{tabularx}		% Allow \begin{tabularx}
+\RequirePackage{appendix}		% Allow Appendix (\appendix)
+\RequirePackage{lmodern}		% Use Latin Modern
+\RequirePackage{nameref}		% Allow \nameref
+\RequirePackage{wrapfig}		% To make clean wrapping figures
+\RequirePackage{lipsum}			% Allow \lipsum
+\RequirePackage{fancyhdr}
+\RequirePackage{caption}		% Allow \label{...}   \ref{...}
+\RequirePackage{subcaption}
+\RequirePackage{moreverb}		% Allow verbatim environment
+\RequirePackage{url}			% Allow proper \url{...}
+\RequirePackage{hyperref}
+\RequirePackage{cite}			% Allow Bibliography
+\RequirePackage{dtklogos}		% Allow \BibTeX good logo
+\RequirePackage{changepage}		% Allow \begin{adjustwidth}
+\RequirePackage{pdfpages}		% Allows \includepdf
+\RequirePackage{listings}		% Allows \begin{listing} & \lstinputlisting{...}
+
+\RequirePackage[pages=some,placement=top]{background}
+								% Allows background content
+								% http://www.ctan.org/pkg/background
+
+
+
+\captionsetup{compatibility=false}
+
+\hypersetup{hidelinks=true}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% English default declarations
+\newcommand{\arno}{Arnaud Panaïotis}
+
+% MACRO to quote an appendix by its label || Number : Section Name, Page
+\providecommand{\refannexe}[1]{(cf. appendix~\ref{#1}: \nameref{#1}, page~\pageref{#1})}
+
+% MACRO to quote a section by its label || Number : Section Name, Page
+\providecommand{\refsection}[1]{(cf. section~\ref{#1}: \nameref{#1}, page~\pageref{#1})}
+
+% MACRO to quote a figure by its label || Number : Section Name, Page
+\providecommand{\reffigure}[1]{(cf. figure~\ref{#1}: \nameref{#1}, page~\pageref{#1})}	
+
+% MACRO to quote a figure and the section annexe by its label || Number : Section Name, annexe lettre, annexe name, Page,
+\providecommand{\refannexedfigure}[1]{(cf. figure~\ref{#1}:~\nameref{#1}; in appendix~\ref{up_#1}:~\nameref{up_#1}, page~\pageref{#1})}	
+
+
+
+\providecommand\monthformated{\ifcase \number\month \or January\or February\or March\or April\or May%
+\or June\or July\or August\or September\or October\or November\or December\fi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%French specific and overriding
+\DeclareOption{french}{
+	
+	% MACRO to quote an annexe by its label || Number : Section Name, Page
+	\renewcommand{\refannexe}[1]{(cf. annexe~\ref{#1} : \nameref{#1}, page~\pageref{#1})}
+
+	% MACRO to quote a section by its label || Number : Section Name, Page
+	\renewcommand{\refsection}[1]{(cf. partie~\ref{#1} : \nameref{#1}, page~\pageref{#1})}
+
+	% MACRO to quote a section by its label || Number : Section Name, Page
+	\renewcommand{\reffigure}[1]{(cf. figure~\ref{#1} : \nameref{#1}, page~\pageref{#1})}
+	
+	% MACRO to quote a figure and the section annexe by its label || Number : Section Name, annexe lettre, annexe name, Page,
+	\renewcommand{\refannexedfigure}[1]{(cf. figure~\ref{#1} :~\nameref{#1}, en annexe~\ref{up_#1} :~\nameref{up_#1}, page~\pageref{#1})}
+
+	\renewcommand{\arno}{\textsc{Panaïotis} Arnaud}
+	
+	
+	
+	\renewcommand\monthformated{\ifcase \number\month \or Janvier\or Février\or Mars\or Avril\or Mai%
+	\or Juin\or Juillet\or Août\or Septembre\or Octobre\or Novembre\or Décembre\fi}
+
+	\PassOptionsToPackage{\CurrentOption}{babel}
+
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%English specific
+\DeclareOption{english}{
+	
+	\PassOptionsToPackage{\CurrentOption}{babel}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fallback
+\DeclareOption*{
+  \ClassWarning{Arno_article}{Unknown option '\CurrentOption'}
+}
+
+
+
+
+%Default option
+\ExecuteOptions{english}
+
+\ProcessOptions\relax
+
+
+
+\RequirePackage{babel}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Globals Macros
+
+% MACRO to modify Marges (right & left)
+\newenvironment{changemargin}[2]{%
+	\begin{list}{}{%
+	\setlength{\leftmargin}{#1}%
+	\setlength{\rightmargin}{#2}%
+	}%
+	\item[]}%
+	{\end{list}}
+
+% MACRO to force stop a wraped figure modification on text
+\makeatletter
+\newcommand\wrapfill{\par
+   \ifx\parshape\WF@fudgeparshape
+   \nobreak
+   \vskip-\baselineskip
+   \vskip\c@WF@wrappedlines\baselineskip
+   \allowbreak
+   \WFclear
+   \fi
+}
+\makeatother
+
+
+\let\oldcaption\caption
+\renewcommand{\caption}[1]{\oldcaption{\footnotesize #1}}
+
+% MACRO to create title page from outside tex file
+\newcommand{\Hrule}{\rule{\linewidth}{0.5mm}}
+
+% MACRO to write footnote without mark
+\makeatletter
+\newcommand\blfootnote[1]{%
+	\begingroup%
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+}
+\makeatother
+
+
+
+
+
+
+%### END OF DOCUMENT
+\endinput

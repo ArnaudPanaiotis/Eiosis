@@ -1,0 +1,83 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage[english]{Arno}
+
+  \title{Eiosis Test Report}
+  \date{\today}
+  \bigskip
+  \author{\arno}
+
+%##########################################
+% START OF THE DOCUMENT
+%##########################################
+\begin{document}
+
+\maketitle
+\bigskip
+
+%**** Logos ****
+\vfill
+\begin{center}
+	\includegraphics[height=3cm]{images/eiosis-logo.png}
+\end{center}
+
+
+\newpage
+%******************************************
+%**** Table des matières *****
+\tableofcontents
+
+
+
+
+\newpage
+
+\newpage
+\section{Test results}
+
+\subsection{Part 1}
+
+\input{./subparts/part1.tex}
+
+\newpage
+\subsection{Part 2}
+
+\newpage
+\subsection{Part 3}
+
+
+\newpage
+\section{Feedback}
+
+\subsection{Configuration/ installation issue}
+
+\subsubsection*{Environment}
+
+\paragraph*{Operating system}
+\begin{boxedverbatim}
+	Windows 7 Professional 64 bits
+	Service Pack 1
+\end{boxedverbatim}
+\paragraph*{IDE version}
+\begin{boxedverbatim}
+	Microsoft Visual Stidio Premium 2013
+	Version 12.0.21005.1 REL
+	
+	Microsoft .NET Framework
+	Version 4.5.50938
+\end{boxedverbatim}
+
+\subsubsection*{Description}
+
+After having loaded with success the given version of the project (build\textbackslash all\textbackslash vs2012\textbackslash Eiosis.snl), it raises an error before stating to generate.
+
+This probably come from my version of Microsoft Visual Studio version, which is 2013.
+
+The solution I finally found is to use the vs2010\textbackslash Eiosis.sln project, which generate successfully.
+
+\bigskip
+N.B.: This solution should be notify in the given document to provide lost of time to people using Visual Studio 2013. 
+
+
+
+
+\end{document}
